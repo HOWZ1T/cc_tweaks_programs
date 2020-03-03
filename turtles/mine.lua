@@ -125,20 +125,29 @@ function setDir(dir)
     end
 end
 
+function abs(val)
+    if val < 0 then
+        return val * -1
+    end
+    return val
+end
+
 function moveTo(loc)
     local curLoc = getLoc()
 
-    -- handle y
-    while not curLoc.y == loc.y do
+    local yDiff = abs(loc.y - curLoc.y)
+    local xDiff = abs(loc.x - curLoc.x)
+    local zDiff = abs(loc.z - curLoc.z)
+
+    local count = 0
+    while count < yDiff do
         if curLoc.y < loc.y then
             turtle.up()
         else
             turtle.down()
         end
+        count = count + 1
     end
-
-    local prevLoc = curLoc
-    curLoc = getLoc()
 
     local dir = getDir()
     if dir == -1 then
@@ -152,8 +161,10 @@ function moveTo(loc)
     elseif curLoc.x < loc.x then -- head EAST
         setDir(EAST)
     end
-    while not curLoc.x == loc.x do
+    count = 0
+    while count < xDiff do
        turtle.forward()
+        count = count + 1
     end
 
     -- handle z
@@ -162,8 +173,10 @@ function moveTo(loc)
     elseif curLoc.z < loc.z then -- head SOUTH
         setDir(SOUTH)
     end
-    while not curLoc.z == loc.z do
+    count = 0
+    while not count < zDiff do
         turtle.forward()
+        count = count + 1
     end
 end
 
