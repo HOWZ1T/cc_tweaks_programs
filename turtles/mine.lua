@@ -149,12 +149,6 @@ function moveTo(loc)
         count = count + 1
     end
 
-    local dir = getDir()
-    if dir == -1 then
-        error("couldn't determine direction...")
-        return
-    end
-
     -- handle x
     if curLoc.x > loc.x then -- head WEST
         setDir(WEST)
