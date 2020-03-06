@@ -283,7 +283,7 @@ end
 
 function hasInvSpace()
     for i = 1, 16, 1 do
-        if hasSpace(slot) then
+        if hasSpace(i) then
             return true
         end
     end
@@ -292,7 +292,7 @@ end
 
 function hasInvEmptySlot()
     for i = 1, 16, 1 do
-        if isEmpty(slot) then
+        if isEmpty(i) then
             return true
         end
     end
