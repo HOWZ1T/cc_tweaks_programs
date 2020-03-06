@@ -298,4 +298,48 @@ function hasInvEmptySlot()
     end
     return false
 end
+
+-- determines if item is in turtle's inventory,
+-- returns table containing res (result) and slot (slot number)
+-- returns table {
+-- res = bool
+-- slot = nil or number
+-- }
+function inInv(item_name)
+    for i = 1, 16, 1 do
+        if not isEmpty(i) then
+            local data = turtle.getItemDetail(i)
+            if string.find(data.name, item_name) then
+                return {res = true, slot = i }
+            end
+        end
+    end
+    return {res = false, slot = nil}
+end
+
+-- finds all slots containing the item
+-- returns table {
+-- count = number (count of slots item is in, in inv)
+-- data = array of number of count length indicating slot where item was found
+-- }
+function findAllInv(item_name)
+    local c = 0
+    local res = {
+        count = 0,
+        data = {}
+    }
+
+    for i = 1, 16, 1 do
+        if not isEmpty(i) then
+            local data = turtle.getItemDetail(i)
+            if string.find(data.name, item_name) then
+                res.data[c] = i
+                c = c + 1
+            end
+        end
+    end
+
+    res.count = c
+    return res
+end
 --------------------------------------------END INVENTORY MANAGEMENT
